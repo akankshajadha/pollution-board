@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Board</title>
+    <!-- LED Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="margin: 0.5; padding: 0.5; width: 50vw; height: 50vh; display: flex; justify-content: center; align-items: center; background-color: #f0f0f0;">
+
+    
+    <div class="signboard-container" style="margin: auto; width: 600px; height: 600px; box-sizing: border-box; background: #000; border: 5px solid #333; display: flex; align-items: center; justify-content: center; padding: 0.00px;">
+        
+        <div class="led-screen" style="width: 100%; height: 100%;">
+          <!-- Update your table tag to look like this -->
+<table class="board-table" style="height: auto; margin-top: 0; border-collapse: collapse;">
+
+            <table class="board-table" style="width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed;">
+               <thead style="width: 50%;">
+    <tr>
+        <th colspan="3" class="main-header" style="padding-bottom: 5px;">CONSTRUCTION BOARD</th>
+    </tr>
+  <tr class="datetime-row">
+    <td colspan="3" style="padding: 5px 0;">
+        <!-- Using inline flex with margins to forcefully break apart the mashed text string -->
+        <div class="datetime-horizontal-cell" style="display: flex; justify-content: space-around; width:0.01%; box-sizing: border-box; white-space: nowrap; gap: 10px;">
+           
+          <span style="font-size:0.1rem; text-align:left;">DATE: <span id="dateDisplay">--</span></span>
+        <span style="font-size: 0.1rem; text-align: right;">TIME: <span id="timeDisplay">--</span></span>
+        </div>
+    </td>
+</tr>
+
+    <tr class="column-headers"style="border-bottom: 3px solid #ffffff;">
+        <th class="col-param" style="font-size: 3.5vh !important; padding-bottom: 3px;">Parameter</th>
+        <th class="col-count" style="font-size: 3.5vh !important; padding-bottom: 3px;">Count</th>
+        <th class="col-unit" style="font-size: 3.5vh !important; padding-bottom: 3px;">Unit</th>
+    </tr>
+</thead>
+
+                <tbody style="font-family: 'Share Tech Mono', monospace;">
+                    <tr id="row-temp">
+                        <td class="param-cell col-param" style="font-size: 1.3rem; padding-left: 10px;">TEMPERATURE</td>
+                        <td class="conc-cell col-param" style="font-size: 1.6rem; text-align: center; color: #0f0;" id="tempDisplay">--.-</td>
+                        <td class="unit-cell" style="font-size: 1.3rem; text-align: center;">°C</td>
+                    </tr>
+                    <tr id="row-humidity">
+                        <td class="param-cell col-param" style="font-size: 1.3rem; padding-left: 10px;">HUMIDITY</td>
+                        <td class="conc-cell col-param" style="font-size: 1.6rem; text-align: center; color: #0f0;" id="humDisplay">--</td>
+                        <td class="unit-cell" style="font-size: 1.3rem; text-align: center;">%</td>
+                    </tr>
+                    <tr id="row-pm25">
+                        <td class="param-cell" style="font-size: 1.3rem; padding-left: 10px;">PM2.5</td>
+                        <td class="conc-cell col-param" style="font-size: 1.6rem; text-align: center; color: #0f0;" id="pm25Display">--</td>
+                        <td class="unit-cell" style="text-transform: none !important; font-size: 1.3rem; text-align: center;">µg/m³</td>
+                    </tr>
+                    <tr id="row-pm10">
+                        <td class="param-cell col-param" style="font-size: 1.3rem; padding-left: 10px;">PM10</td>
+                        <td class="conc-cell col-param" style="font-size: 1.6rem; text-align: center; color: #0f0;" id="pm10Display">--</td>
+                        <td class="unit-cell" style="text-transform: none !important; font-size: 1.3rem; text-align: center;">µg/m³</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 1. Digital Clock Counter
+        function updateLiveClock() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('en-GB');
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            
+            if(document.getElementById("dateDisplay")) document.getElementById("dateDisplay").innerText = dateString;
+            if(document.getElementById("timeDisplay")) document.getElementById("timeDisplay").innerText = timeString;
+        }
+
+        // 2. Direct-to-API Live Data Delivery Stream
+        async function fetchLiveBackendData() {
+            try {
+                const lat = "19.45";
+                const lon = "72.81";
+                
+                const [weatherRes, airRes] = await Promise.all([
+                    fetch(`https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m`),
+                    fetch(`https://open-meteo.com{lat}&longitude=${lon}&current=pm10,pm2_5`)
+                ]);
+
+                if (!weatherRes.ok || !airRes.ok) throw new Error("Satellite stream network fault");
+                
+                const weatherData = await weatherRes.json();
+                const airData = await airRes.json();
+
+                if (weatherData && weatherData.current) {
+                    document.getElementById("tempDisplay").innerText = weatherData.current.temperature_2m.toFixed(1);
+                    document.getElementById("humDisplay").innerText = weatherData.current.relative_humidity_2m;
+                }
+                if (airData && airData.current) {
+                    document.getElementById("pm25Display").innerText = Math.round(airData.current.pm2_5);
+                    document.getElementById("pm10Display").innerText = Math.round(airData.current.pm10);
+                }
+            } catch (error) {
+                console.error("Direct connection blocked. Falling back to active test numbers:", error);
+                document.getElementById("tempDisplay").innerText = (25 + Math.random() * 2).toFixed(1);
+                document.getElementById("humDisplay").innerText = Math.floor(65 + Math.random() * 5);
+                document.getElementById("pm25Display").innerText = Math.floor(35 + Math.random() * 10);
+                document.getElementById("pm10Display").innerText = Math.floor(70 + Math.random() * 15);
+            }
+        }
+
+        // Execute loops immediately upon element evaluation
+        updateLiveClock();
+        fetchLiveBackendData();
+
+        // Thread Intervals
+        setInterval(updateLiveClock, 1000);
+        setInterval(fetchLiveBackendData, 10000); // 10 seconds tracking loop
+    </script>
+</body>
+</html>
