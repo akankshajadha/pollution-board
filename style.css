@@ -4,10 +4,10 @@
 body {
     background-color: #0b0b0b;
     margin: 0;
-    padding: 10px;
+    padding: 0;
     box-sizing: border-box;
-    min-height: 100vh;
-    width: 100vw;
+    height: 160px;
+    width: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,50 +15,78 @@ body {
     overflow: hidden;
 }
 
-/* 
-   THE ADAPTIVE CONTAINER RULE:
-   Maintains a static 2:1 aspect ratio layout block.
-   Container-type turns this element into a scaling boundary for text inside it.
-*/
+/* The Adaptive Frame Block */
 .signboard-container {
     background-color: #0b0b0b;
-    padding: 0.8cqw;
-    border: 0.3cqw solid #ffffff;
+    padding: 2px;
+    border: 1px solid #ffffff;
     box-sizing: border-box;
-    width: 100%;
-    max-width: 640px; /* Maximum size lock for desktop monitors */
-    aspect-ratio: 2 / 1; /* Retains crisp 320x160 scaling ratios across all devices */
+    width: 316px;
+    height: 156px;
+    aspect-ratio: 2 / 1; 
     container-type: inline-size;
 }
 
-.led-screen {
+/* LED Screen Background & Outer Border Frame */
+
+   .led-screen {
     border: 0.6cqw solid #e65c00;
     padding: 1cqw;
     background: radial-gradient(circle, #151525 0%, #05050a 100%);
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    /* ADD THESE TWO LINES */
+    display: flex;
+    flex-direction: column;
+
 }
 
+/* Master Table Configuration */
 .board-table {
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ff4500;
     border-collapse: collapse;
     text-transform: uppercase;
     text-align: center;
     table-layout: fixed;
 }
 
+/* 
+   THE GRID MAKER RULE: 
+   Forces explicit solid gray box lines directly around every single header and cell.
+*/
+/* This applies full grid borders around the column headers */
+.board-table th {
+    border: 1px solid #555555 !important;
+    padding: 2px !important;
+}
+
+/* This applies grid borders ONLY to the input data cells */
+.board-table td {
+    border: 1px solid #555555 !important;
+    padding: 2px !important;
+}
+
+/* FIX: Removes all borders from the top Date and Time cells completely */
+.board-table .date-cell,
+.board-table .time-cell {
+    border: none !important;
+}
+
 /* ==========================================================================
-   Typography Scales Fluidly with 'cqw' (Container Query Width Units)
+   Typography Scales
    ========================================================================== */
 .main-header {
     color: #00e5ff;
-    font-size: 4.2cqw; /* Grows/shrinks depending on the board width */
-    letter-spacing: 0.3cqw;
+    font-size: 13px; 
+    line-height: 15px;
+    letter-spacing: 0.5px;
     padding: 0.5cqw 0;
     text-shadow: 0 0 1.5cqw rgba(0, 229, 255, 0.8);
-    border-bottom: 0.4cqw double #00e5ff;
 }
 
 .date-cell {
@@ -67,7 +95,6 @@ body {
     font-size: 3.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border-bottom: 0.15cqw solid rgba(255, 255, 255, 0.2);
 }
 
 .time-cell {
@@ -76,29 +103,21 @@ body {
     font-size: 3.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border-bottom: 0.15cqw solid rgba(255, 255, 255, 0.2);
 }
 
 .column-headers th {
     color: #ffffff;
     font-size: 3.2cqw;
     padding: 0.8cqw 0;
-    border-bottom: 0.3cqw solid #ffffff;
 }
 
-/* Horizontal Grid Tracking Distribution Allocations */
+/* Column Distribution Allocations */
 .col-param { text-align: left; padding-left: 1.5cqw; width: 48%; }
 .col-count { text-align: center; width: 28%; }
 .col-unit  { text-align: center; width: 24%; }
 
 .board-table td {
     font-size: 3.5cqw;
-    padding: 0.4cqw 0;
-    border-bottom: 0.15cqw solid rgba(255, 255, 255, 0.15);
-}
-
-.board-table tr:last-child td {
-    border-bottom: none;
 }
 
 /* Glowing Element Assignments */
