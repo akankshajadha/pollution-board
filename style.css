@@ -14,11 +14,11 @@
   /* Outer Signboard Box stretched across the layout boundaries */
   .signboard-container {
     background-color: #0b0b0b;
-    padding: 160px;
-    border: 160px solid #ffffff;
+    padding: 2px;
+    border: 1px solid #ffffff;
     box-sizing: border-box;
-    width: 5px;
-    height: 5px;
+    width: 192px;
+    height: 96px;
   }
 
   /* Screen Matrix Backing stretched completely */
