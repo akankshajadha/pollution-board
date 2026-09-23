@@ -63,4 +63,4 @@ getSensorData();
 
 
 // Automatically update every 10 seconds
-setInterval(getSensorData, 10000);
+setInterval(getSensorData, 5000);
