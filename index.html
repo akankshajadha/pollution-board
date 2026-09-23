@@ -25,9 +25,9 @@
         <th colspan="3" class="main-header" style="padding-bottom: 5px;">CONSTRUCTION BOARD</th>
     </tr>
   <tr class="datetime-row">
-    <td colspan="3" style="padding: 5px 0;">
+    <td colspan="3.49" style="padding: 6px 0;">
         <!-- Using inline flex with margins to forcefully break apart the mashed text string -->
-        <div class="datetime-horizontal-cell" style="display: flex; justify-content: space-around; width:0.01%; box-sizing: border-box; white-space: nowrap; gap: 10px;">
+        <div class="datetime-horizontal-cell" style="display: flex; justify-content: space-around; width:0.01%; box-sizing: border-box; white-space: nowrap; gap: 85px;">
            
           <span style="font-size:0.1rem; text-align:left;">DATE: <span id="dateDisplay">--</span></span>
         <span style="font-size: 0.1rem; text-align: right;">TIME: <span id="timeDisplay">--</span></span>
@@ -118,7 +118,7 @@
 
         // Thread Intervals
         setInterval(updateLiveClock, 1000);
-        setInterval(fetchLiveBackendData, 10000); // 10 seconds tracking loop
+        setInterval(fetchLiveBackendData, 5000); // 10 seconds tracking loop
     </script>
 </body>
 </html>
