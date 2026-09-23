@@ -21,10 +21,10 @@
                         <th colspan="3" class="main-header">CONSTRUCTION BOARD</th>
                     </tr>
                     <tr class="datetime-row">
-                        <td colspan="2" class="date-cell">
+                        <td colspan="0.23" class="date-cell">
                             DATE: <span id="dateDisplay">--/--/----</span>
                         </td>
-                        <td class="time-cell">
+                        <td class="time-cell" colspan="5">
                             TIME: <span id="timeDisplay">--:--:-- --</span>
                         </td>
                     </tr>
@@ -107,7 +107,7 @@
         updateLiveClock();
         fetchLiveBackendData();
         setInterval(updateLiveClock, 1000);       
-        setInterval(fetchLiveBackendData, 5000);   
+        setInterval(fetchLiveBackendData,3000);   
     </script>
 </body>
 </html>
