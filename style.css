@@ -16,7 +16,7 @@ body {
 .signboard-container {
     background-color: #0b0b0b;
     padding: 2px;
-    border: 1px solid #222222;
+    border: 1px solid #f1eaea;
     box-sizing: border-box;
     width: 160px;
     height: 160px;
@@ -71,7 +71,7 @@ body {
     line-height: 15px;
     letter-spacing: 0.5px;
     padding: 0.5cqw 0;
-    text-shadow: 0 0 1.5cqw rgba(0, 229, 255, 0.8);
+    /* text-shadow: 0 0 1.5cqw rgba(0, 229, 255, 0.8); */
 }
 
 .date-cell {
@@ -116,19 +116,19 @@ body {
 /* Glowing Element Assignments */
 .param-cell {
     color: #ff6600;
-    text-shadow: 0 0 8cqw rgba(255, 102, 0, 0.8);
+    /* text-shadow: 0 0 8cqw rgba(255, 102, 0, 0.8); */
     /* font-weight: bold; */
 }
 
 .conc-cell {
     color: #00ff66;
-    text-shadow: 0 0 8cqw rgba(0, 255, 102, 0.9);
+    /* text-shadow: 0 0 8cqw rgba(0, 255, 102, 0.9); */
     /* font-weight: bold; */
 }
 
 .unit-cell {
     color: #ff3333;
-    text-shadow: 0 0 8cqw rgba(255, 51, 51, 0.9);
+    /* text-shadow: 0 0 8cqw rgba(255, 51, 51, 0.9); */
 }
 
 .unit-special {
