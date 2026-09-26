@@ -1,16 +1,16 @@
+/* @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); */
 
 body {
     background-color: #0b0b0b;
     margin: 0;
     padding: 0;
     /* box-sizing: border-box; */
-    height: 120px;
-    width: 120px;
+    height: 160px;
+    width: 160px;
     /* display: flex; */
     justify-content: center;
     align-items: center;
    /* font-family: 'VT323', monospace; */
-   min-height: 100vh;
     /* overflow: hidden; */
 }
 
@@ -20,8 +20,8 @@ body {
     padding: 2px;
     border: 1px solid #f1eaea;
     box-sizing: border-box;
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     aspect-ratio: 1 / 1; 
     container-type: inline-size;
 }
