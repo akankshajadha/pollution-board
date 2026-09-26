@@ -13,7 +13,13 @@ body {
     /* font-family: 'Share Tech Mono', monospace; */
     /* overflow: hidden; */
 }
-
+.parameter-title{
+    font-size: 4vw;
+    letter-spacing: -1px;
+    white-space: nowrape;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* The Adaptive Frame Block */
 .signboard-container {
     background-color: #0b0b0b;
