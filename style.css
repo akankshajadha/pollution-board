@@ -5,8 +5,8 @@ body {
     margin: 0;
     padding: 0;
     /* box-sizing: border-box; */
-    height: 130px;
-    width: 140px;
+    /* height: 130px; */
+    /* width: 140px; */
     /* display: flex; */
     justify-content: center;
     align-items: center;
@@ -17,19 +17,19 @@ body {
 /* The Adaptive Frame Block */
 .signboard-container {
     background-color: #0b0b0b;
-    padding: 2px;
-    border: 1px solid #f1eaea;
-    box-sizing: border-box;
-    width: 130px;
+    /* padding: 2px; */
+    /* border: 1px solid #f1eaea; */
+    /* box-sizing: border-box; */
+    width: px;
     height: 160px;
     aspect-ratio: 1 / 1; 
     container-type: inline-size;
 }
    .led-screen {
-    border: 0.6cqw solid #993d00;
+    /* border: 0.6cqw solid #993d00; */
     padding: 1cqw;
     background: #000000;
-    width: 96%;
+    /* width: %; */
     height: 100%;
     box-sizing: border-box; 
         /* box-shadow: none !important; */
