@@ -115,7 +115,8 @@ body {
 }
 
 .board-table td {
-    font-size: 1.0cqw;
+    font-size: 2.6cqw;
+     padding: 0.9cqw 0;
 }
 
 .param-cell { color: #ff6600; }
