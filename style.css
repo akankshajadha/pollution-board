@@ -29,8 +29,8 @@ body {
     /* border: 0.6cqw solid #993d00; */
     padding: 1cqw;
     /* background: #000000; */
-    width: 128%; 
-    height: 64%;
+    /* width: %; */
+    height: 128%;
     box-sizing: border-box; 
     box-shadow: none !important; 
     display: flex; 
