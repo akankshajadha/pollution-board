@@ -73,113 +73,114 @@
         </div>
         <script src="script.js?v=901"></script>
         <script>
-        
-            let activeLat = "19.45";
-            let activeLon = "72.81";
+        // Hardcoded location for Vasai-Virar region (Lat: 19.45, Lon: 72.81)
+var activeLat = "19.45";
+var activeLon = "72.81";
 
-            function updateLiveClock() {
-                const now = new Date();
-                const day = String(now.getDate()).padStart(2, '0');
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const year = now.getFullYear();
-                const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-                
-                if(document.getElementById("dateDisplay")) document.getElementById("dateDisplay").innerText = `${day}/${month}/${year}`;
-                if(document.getElementById("timeDisplay")) document.getElementById("timeDisplay").innerText = timeString;
-            }
+// 1. Clock Function (Runs every second)
+function updateClock() {
+    var now = new Date();
+    
+    // Format Day
+    var day = String(now.getDate());
+    if (day.length < 2) day = '0' + day;
+    
+    // Format Month
+    var month = String(now.getMonth() + 1);
+    if (month.length < 2) month = '0' + month;
+    
+    // Format Year (2-digit: e.g., 26)
+    var year = String(now.getFullYear()).slice(-2);
+    
+    // Format Hours
+    var hours = String(now.getHours());
+    if (hours.length < 2) hours = '0' + hours;
+    
+    // Format Minutes
+    var mins = String(now.getMinutes());
+    if (mins.length < 2) mins = '0' + mins;
 
-        
-        async function fetchCityName(lat, lon) {
-        try {
-            // OpenStreetMap reverse geocoding URL
-            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
-            const res = await fetch(url);
-            
-            if (!res.ok) throw new Error("Location lookup failed");
+    // Update DOM elements safely
+    var dateElem = document.getElementById("dateDisplay");
+    var timeElem = document.getElementById("timeDisplay");
 
-            const data = await res.json();
-            const address = data.address || {};
-            
-            // Pick the best location field available
-            const city = address.city || address.town || address.village || address.suburb || address.county || "LOCAL";
+    if (dateElem) dateElem.innerHTML = day + "/" + month + "/" + year;
+    if (timeElem) timeElem.innerHTML = hours + ":" + mins;
+}
 
-            // Display the location in UPPERCASE on the LED board
-            if (document.getElementById("locationDisplay")) {
-                document.getElementById("locationDisplay").innerText = city.toUpperCase();
-            }
-        } catch (error) {
-            console.error("Failed to map location name:", error);
-            if (document.getElementById("locationDisplay")) {
-                document.getElementById("locationDisplay").innerText = "CONNECTED";
-            }
-        }
-    }
-        
-            async function fetchLiveBackendData() {
-                try {
-                    console.log(`📡 Requesting telemetry streams for: Lat ${activeLat}, Lon ${activeLon}`);
+// 2. Fetch Live Weather & Air Quality Data using XMLHttpRequest (TB10 Compatible)
+function fetchSensorData() {
+    // Explicit HTTPS endpoint for Open-Meteo Weather API
+    var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + activeLat + "&longitude=" + activeLon + "&current=temperature_2m,relative_humidity_2m";
+    
+    // Explicit HTTPS endpoint for Open-Meteo Air Quality API
+    var airUrl = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + activeLat + "&longitude=" + activeLon + "&current=pm2_5,pm10";
 
-                
-                    const [weatherRes, airRes] = await Promise.all([
-                        fetch(`https://open-meteo.com{activeLat}&longitude=${activeLon}&current=temperature_2m,relative_humidity_2m`),
-                        fetch(`https://open-meteo.com{activeLat}&longitude=${activeLon}&current=pm10,pm2_5`)
-                    ]);
-
-                    if (!weatherRes.ok || !airRes.ok) throw new Error("API stream connection dropped");
-                    
-                    const weatherData = await weatherRes.json();
-                    const airData = await airRes.json();
-
-                
-                    if (weatherData?.current) {
-                        document.getElementById("tempDisplay").innerText = weatherData.current.temperature_2m.toFixed(1);
-                        document.getElementById("humDisplay").innerText = weatherData.current.relative_humidity_2m;
-                    }
-                    
-                    if (airData?.current) {
-                        document.getElementById("pm25Display").innerText = Math.round(airData.current.pm2_5);
-                        document.getElementById("pm10Display").innerText = Math.round(airData.current.pm10);
-                    }
-                } catch (error) {
-                    console.warn("API Error. Running simulation values:", error.message);
-                    
-                    
-                    document.getElementById("tempDisplay").innerText = (25 + Math.random() * 2).toFixed(1);
-                    document.getElementById("humDisplay").innerText = Math.floor(65 + Math.random() * 5);
-                    document.getElementById("pm25Display").innerText = Math.floor(35 + Math.random() * 10);
-                    document.getElementById("pm10Display").innerText = Math.floor(70 + Math.random() * 15);
-                }   
-            }
-
-        
-            function initializeLiveLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            activeLat = position.coords.latitude.toFixed(4);
-                            activeLon = position.coords.longitude.toFixed(4);
-                            
-                            console.log("📍 GPS HARDWARE LINK ESTABLISHED:", activeLat, activeLon);
-                            
-                            fetchCityName(activeLat, activeLon);
-                            fetchLiveBackendData();
-                        },
-                        (error) => {
-                            console.warn("Hardware tracking blocked. Using defaults.");
-                            fetchCityName(activeLat, activeLon);
-                            fetchLiveBackendData();
-                        }
-                    );
-                } else {
-                    fetchCityName(activeLat, activeLon);
-                    fetchLiveBackendData();
+    // Request Weather Data
+    var xhrWeather = new XMLHttpRequest();
+    xhrWeather.open("GET", weatherUrl, true);
+    xhrWeather.onload = function () {
+        if (xhrWeather.status === 200) {
+            try {
+                var response = JSON.parse(xhrWeather.responseText);
+                if (response && response.current) {
+                    document.getElementById("tempDisplay").innerHTML = response.current.temperature_2m.toFixed(1);
+                    document.getElementById("humDisplay").innerHTML = Math.round(response.current.relative_humidity_2m);
                 }
+            } catch (e) {
+                useFallbackValues();
             }
-            updateLiveClock();
-            initializeLiveLocation();
+        } else {
+            useFallbackValues();
+        }
+    };
+    xhrWeather.onerror = function () {
+        useFallbackValues();
+    };
+    xhrWeather.send();
 
-            setInterval(updateLiveClock, 1000);
-            setInterval(fetchLiveBackendData, 3000);
+    // Request Air Quality Data
+    var xhrAir = new XMLHttpRequest();
+    xhrAir.open("GET", airUrl, true);
+    xhrAir.onload = function () {
+        if (xhrAir.status === 200) {
+            try {
+                var airResponse = JSON.parse(xhrAir.responseText);
+                if (airResponse && airResponse.current) {
+                    document.getElementById("pm25Display").innerHTML = Math.round(airResponse.current.pm2_5);
+                    document.getElementById("pm10Display").innerHTML = Math.round(airResponse.current.pm10);
+                }
+            } catch (e) {
+                useFallbackValues();
+            }
+        } else {
+            useFallbackValues();
+        }
+    };
+    xhrAir.onerror = function () {
+        useFallbackValues();
+    };
+    xhrAir.send();
+}
+
+// 3. Fallback Function (Ensures screen never displays empty dashes if internet drops)
+function useFallbackValues() {
+    var tempElem = document.getElementById("tempDisplay");
+    if (tempElem && (tempElem.innerHTML === "--.-" || tempElem.innerHTML === "--")) {
+        document.getElementById("tempDisplay").innerHTML = "26.5";
+        document.getElementById("humDisplay").innerHTML = "65";
+        document.getElementById("pm25Display").innerHTML = "38";
+        document.getElementById("pm10Display").innerHTML = "75";
+    }
+}
+
+// Execute immediately when the script loads
+updateClock();
+fetchSensorData();
+
+// Set refresh timers
+setInterval(updateClock, 1000);         // Update clock every second
+setInterval(fetchSensorData, 3000);     // Fetch live API data every 60 seconds
         </script>
     </body>
     </html>
