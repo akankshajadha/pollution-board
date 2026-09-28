@@ -4,8 +4,6 @@ body {
     padding: 0;
     font-family: 'Share Tech Mono', monospace;
     overflow: hidden; 
-    
-    /* Center the signboard on the display screen */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +12,7 @@ body {
 
 /* The Adaptive Frame Block */
 .signboard-container {
+    background-color:#0b0b0b;
     height: 160px;
     width: 160px; /* Fixed width matching height to preserve 1:1 aspect ratio */
     aspect-ratio: 1 / 1; 
@@ -22,6 +21,7 @@ body {
 }
 
 .led-screen {
+    background-color:#0b0b0b;
     padding: 1cqw;
     width: 100%; /* Force screen container to take full container width */
     height: 100%;
@@ -44,18 +44,18 @@ body {
 }
 
 /* Updated Column Width Distribution to equal 100% */
-.col-param { width: 50%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 25%; text-align: center; }
-.col-unit  { width: 25%; text-align: center; }  
+.col-param { width: 60%; text-align: left; padding-left: 1px !important; }
+.col-count { width: 20%; text-align: center; }
+.col-unit  { width: 20%; text-align: center; }  
 
 .col-count { 
     text-align: center; 
-    width: 25%; 
+    width: 20%; 
 }
 
 .col-unit { 
     text-align: center; 
-    width: 25%; 
+    width: 20%; 
 }
 
 .board-table th,
