@@ -84,7 +84,7 @@ body {
     /* display: flex !important; */
      justify-content: flex-start; 
     align-items: center;
-    gap: 8px; /* Space between DATE and TIME */
+    gap: 7px; /* Space between DATE and TIME */
     padding-left: 2px !important;
     white-space: nowrap;
 }
