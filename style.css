@@ -44,9 +44,9 @@ body {
 }
 
 /* Updated Column Width Distribution to equal 100% */
-.col-param { width: 45%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 25%; text-align: center; }
-.col-unit  { width: 30%; text-align: center; }  
+.col-param { width: 42%; text-align: left; padding-left: 2px !important; }
+.col-count { width: 30%; text-align: center; }
+.col-unit  { width: 28%; text-align: center; }  
 
 .col-count { 
     text-align: center; 
@@ -73,7 +73,7 @@ body {
 .time-cell   { color: #ffffff; font-size: 9px; text-align: right; padding-right: 2px; }
 
 .column-headers th { color: #00e5ff; font-size: 9px; }
-.param-cell { color: #ff6600; font-size: 9px; text-align: left; padding-left: 2px; }
+.param-cell { color: #ff6600; font-size: 10px; text-align: left; padding-left: 2px; }
 .conc-cell  { color: #00ff66; font-size: 9px; }
 .unit-cell  { color: #ff3333; font-size: 9px; }
 
@@ -101,14 +101,12 @@ body {
 
 .time-cell {
     text-align: left;
-    padding-left:3cqw ; 
-    font-size: 4.2cqw;
+    padding-left: 3cqw; 
+    font-size: 3.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border-top: 1px solid #555555 ;
-    border-left: 1px solid #555555 ;
-    border-bottom: 1px solid #555555 ;
-    border-right: 1px solid #555555;
+    border: 1px solid #555555;
+}
 
 .column-headers th {
     color: #00e5ff;
@@ -117,7 +115,7 @@ body {
 }
 
 .board-table td {
-    font-size: 2.0cqw;
+    font-size: 3.0cqw;
 }
 
 .param-cell { color: #ff6600; }
