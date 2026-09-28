@@ -64,6 +64,18 @@ body {
     padding: 1px;
     box-sizing: border-box;
 }
+.col-param { width: 45%; text-align: left; padding-left: 2px !important; }
+.col-count { width: 25%; text-align: center; }
+.col-unit  { width: 30%; text-align: center; }
+
+.main-header { color: #00e5ff; font-size: 10px; }
+.date-cell   { color: #ffffff; font-size: 9px; text-align: left; padding-left: 2px; }
+.time-cell   { color: #ffffff; font-size: 9px; text-align: right; padding-right: 2px; }
+
+.column-headers th { color: #00e5ff; font-size: 9px; }
+.param-cell { color: #ff6600; font-size: 9px; text-align: left; padding-left: 2px; }
+.conc-cell  { color: #00ff66; font-size: 9px; }
+.unit-cell  { color: #ff3333; font-size: 9px; }
 
 .board-table .date-cell,
 .board-table .time-cell {
