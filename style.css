@@ -80,6 +80,20 @@ body {
 .board-table .date-cell,
 .board-table .time-cell {
     border: none;
+}.datetime-cell {
+    /* display: flex !important; */
+     justify-content: flex-start; 
+    align-items: center;
+    gap: 8px; /* Space between DATE and TIME */
+    padding-left: 2px !important;
+    white-space: nowrap;
+}
+
+.date-text, 
+.time-text {
+    color: #ffffff;
+    font-size: 7.5px;
+    white-space: nowrap;
 }
 
 .main-header {
@@ -90,23 +104,6 @@ body {
     padding: 0.5cqw 0;
 }
 
-.date-cell {
-    text-align: left;
-    padding: 0.5cqw 0.5cqw;
-    font-size: 2.2cqw;
-    color: #ffffff;
-    white-space: nowrap;
-    border: 1px solid #555555;
-}
-
-.time-cell {
-    text-align: left;
-    padding-left: 3cqw; 
-    font-size: 3.2cqw;
-    color: #ffffff;
-    white-space: nowrap;
-    border: 1px solid #555555;
-}
 
 .column-headers th {
     color: #00e5ff;
