@@ -101,12 +101,14 @@ body {
 
 .time-cell {
     text-align: left;
-    padding-left: 3cqw; 
-    font-size: 3.2cqw;
+    padding-left:3cqw ; 
+    font-size: 4.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border: 1px solid #555555;
-}
+    border-top: 1px solid #555555 ;
+    border-left: 1px solid #555555 ;
+    border-bottom: 1px solid #555555 ;
+    border-right: 1px solid #555555;
 
 .column-headers th {
     color: #00e5ff;
@@ -115,7 +117,7 @@ body {
 }
 
 .board-table td {
-    font-size: 3.2cqw;
+    font-size: 2.0cqw;
 }
 
 .param-cell { color: #ff6600; }
