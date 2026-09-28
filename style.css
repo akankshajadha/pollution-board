@@ -1,127 +1,124 @@
-body {
-    background-color: #0b0b0b;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    background-color: #0b0b0b;
     font-family: 'Share Tech Mono', monospace;
     overflow: hidden; 
-    
-    /* Center the signboard on the display screen */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
+}   
 
-/* The Adaptive Frame Block */
+/* Adaptive Container */
 .signboard-container {
     height: 160px;
-    width: 160px; /* Fixed width matching height to preserve 1:1 aspect ratio */
+    width: 160px;
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
     box-sizing: border-box;
 }
 
 .led-screen {
-    padding: 1cqw;
-    width: 100%; /* Force screen container to take full container width */
+    padding: 0;
+    width: 100%;
     height: 100%;
     box-sizing: border-box; 
-    box-shadow: none !important; 
     display: flex; 
     flex-direction: column;
 }
 
 .board-table {
-    width: 100%; /* Fixed from 10% to fill the LED screen */
+    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    border: 1px solid #f1eaea;
+    border: 1px solid #ffffff;
     border-collapse: collapse;
     text-transform: uppercase;
     text-align: center;
-    table-layout: fixed; /* Ensures column widths sum accurately to 100% */
+    table-layout: fixed;
 }
 
-/* Updated Column Width Distribution to equal 100% */
-.col-param { width: 42%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 30%; text-align: center; }
-.col-unit  { width: 28%; text-align: center; }  
-
-.col-count { 
-    text-align: center; 
-    width: 25%; 
-}
-
-.col-unit { 
-    text-align: center; 
-    width: 25%; 
-}
+/* Strict Column Widths (Sum = 100%) */
+.col-param { width: 48%; text-align: left; }
+.col-count { width: 26%; text-align: center; }
+.col-unit  { width: 26%; text-align: center; }
 
 .board-table th,
 .board-table td {
-    border: 1px solid #f1eaea;
-    padding: 1px;
+    border: 1px solid #ffffff;
+    padding: 0.5cqw;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 2.7cqw;
 }
-.col-param { width: 42%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 30%; text-align: center; }
-.col-unit  { width: 28%; text-align: center; }
 
-.main-header { color: #00e5ff; font-size: 10px; }
-.date-cell   { color: #ffffff; font-size: 9px; text-align: left; padding-left: 2px; }
-.time-cell   { color: #ffffff; font-size: 9px; text-align: right; padding-right: 2px; }
+/* Header & Datetime Rows */
+.main-header { 
+    color: #00e5ff; 
+    font-size: 3.5cqw; 
+    line-height: 1.2;
+    padding: 0.5cqw 0;
+    text-align: center;
+}
 
-.column-headers th { color: #00e5ff; font-size: 9px; }
-.param-cell { color: #ff6600; font-size: 10px; text-align: left; padding-left: 2px; }
-.conc-cell  { color: #00ff66; font-size: 9px; }
-.unit-cell  { color: #ff3333; font-size: 9px; }
-
+/* Removed borders for DATE/TIME row and shifted TIME left toward DATE */
 .board-table .date-cell,
 .board-table .time-cell {
     border: none;
-}
-
-.main-header {
-    color: #00e5ff;
-    font-size: 12px; 
-    line-height: 15px;
-    letter-spacing: 0.2px;
-    padding: 0.5cqw 0;
+    color: #ffffff;
+    white-space: nowrap;
 }
 
 .date-cell {
     text-align: left;
-    padding: 0.5cqw 0.5cqw;
-    font-size: 2.2cqw;
-    color: #ffffff;
-    white-space: nowrap;
-    border: 1px solid #555555;
+    padding-left: 1cqw;
+    font-size: 2.6cqw;
 }
 
 .time-cell {
     text-align: left;
-    padding-left: 3cqw; 
-    font-size: 3.2cqw;
-    color: #ffffff;
-    white-space: nowrap;
-    border: 1px solid #555555;
+    padding-left: 1cqw; /* Decreased gap to bring TIME closer to DATE */
+    font-size: 2.6cqw;
 }
 
 .column-headers th {
     color: #00e5ff;
     font-size: 3.0cqw;
-    padding: 0.9cqw 0;
+    padding: 0.5cqw 0;
 }
 
-.board-table td {
-    font-size: 2.6cqw;
-     padding: 0.9cqw 0;
+/* Row Values Styling */
+.param-cell { 
+    color: #ff6600; 
+    text-align: left; 
+    padding-left: 1cqw;
 }
 
-.param-cell { color: #ff6600; }
-.conc-cell  { color: #00ff66; }
-.unit-cell  { color: #ff3333; }
+/* Specific Fix for "TEMPERATURE" length */
+.param-temp {
+    color: #ff6600;
+    text-align: left;
+    padding-left: 0.5cqw;
+    font-size: 2.1cqw !important;
+    letter-spacing: -0.5px;
+}
+
+.conc-cell { 
+    color: #00ff66; 
+    text-align: center;
+}
+
+.unit-cell { 
+    color: #ff3333; 
+    text-align: center;
+}
 
 .unit-special {
     text-transform: none !important;
