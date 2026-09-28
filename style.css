@@ -44,11 +44,9 @@ body {
 }
 
 /* Updated Column Width Distribution to equal 100% */
-.col-param { 
-    text-align: center; 
-    padding-left: 1.5cqw; 
-    width: 50%; 
-}
+.col-param { width: 45%; text-align: left; padding-left: 2px !important; }
+.col-count { width: 25%; text-align: center; }
+.col-unit  { width: 30%; text-align: center; }  
 
 .col-count { 
     text-align: center; 
@@ -83,7 +81,7 @@ body {
 .date-cell {
     text-align: left;
     padding: 0.5cqw 0.5cqw;
-    font-size: 3.2cqw;
+    font-size: 2.2cqw;
     color: #ffffff;
     white-space: nowrap;
     border: 1px solid #555555;
@@ -92,7 +90,7 @@ body {
 .time-cell {
     text-align: left;
     padding-left: 3cqw; 
-    font-size: 4.2cqw;
+    font-size: 3.2cqw;
     color: #ffffff;
     white-space: nowrap;
     border: 1px solid #555555;
@@ -100,12 +98,12 @@ body {
 
 .column-headers th {
     color: #00e5ff;
-    font-size: 6.2cqw;
+    font-size: 3.0cqw;
     padding: 0.9cqw 0;
 }
 
 .board-table td {
-    font-size: 4.5cqw;
+    font-size: 3.2cqw;
 }
 
 .param-cell { color: #ff6600; }
