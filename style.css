@@ -4,8 +4,8 @@ body {
     margin: 0;
     padding: 0;
     /* box-sizing: border-box; */
-    /* height: 130px; */
-    /* width: 140px; */
+     height: 400px; 
+     width: 160px; 
     /* display: flex;  */
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@ body {
      /* padding: px; */
      /* border: px solid #f1eaea;  */
       box-sizing: border-box;  
-    width: px;
+    width: 400px;
     height: 160px;
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
@@ -39,7 +39,7 @@ body {
 
 }
 .board-table {
-    width: 10%;
+    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
