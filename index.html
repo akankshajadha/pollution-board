@@ -74,135 +74,32 @@
 var activeLat = "19.45";
 var activeLon = "72.81";
 
-body {
-    background-color: #0b0b0b;
-    margin: 0;
-    padding: 0;
-    font-family: 'Share Tech Mono', monospace;
-    overflow: hidden; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+// Hardcoded location for Vasai-Virar region (Lat: 19.45, Lon: 72.81)
+var activeLat = "19.45";
+var activeLon = "72.81";
 
-/* The Adaptive Frame Block */
-.signboard-container {
-    background-color:#0b0b0b;
-    height: 160px;
-    width: 160px; /* Fixed width matching height to preserve 1:1 aspect ratio */
-    aspect-ratio: 1 / 1; 
-    container-type: inline-size; 
-    box-sizing: border-box;
-}
-
-.led-screen {
-    background-color:#0b0b0b;
-    padding: 1cqw;
-    width: 100%; /* Force screen container to take full container width */
-    height: 100%;
-    box-sizing: border-box; 
-    box-shadow: none !important; 
-    display: flex; 
-    flex-direction: column;
-}
-
-.board-table {
-    width: 100%; /* Fixed from 10% to fill the LED screen */
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #f1eaea;
-    border-collapse: collapse;
-    text-transform: uppercase;
-    text-align: center;
-    table-layout: fixed; /* Ensures column widths sum accurately to 100% */
-}
-
-/* Updated Column Width Distribution to equal 100% */
-.col-param { width: 60%; text-align: left; padding-left: 1px !important; }
-.col-count { width: 20%; text-align: center; }
-.col-unit  { width: 20%; text-align: center; }  
-
-.col-count { 
-    text-align: center; 
-    width: 20%; 
-}
-
-.col-unit { 
-    text-align: center; 
-    width: 20%; 
-}
-
-.board-table th,
-.board-table td {
-    border: 1px solid #f1eaea;
-    padding: 1px;
-    box-sizing: border-box;
-}
-.col-param { width: 50%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 25%; text-align: center; }
-.col-unit  { width: 25%; text-align: center; }
-
-.main-header { color: #00e5ff; font-size: 10px; }
-.date-cell   { color: #ffffff; font-size: 9px; text-align: left; padding-left: 2px; }
-.time-cell   { color: #ffffff; font-size: 9px; text-align: left; padding-left: 2px; }
-
-.column-headers th { color: #00e5ff; font-size: 9px; }
-.param-cell { color: #ff6600; font-size: 10px; text-align: left; padding-left: 2px; }
-.conc-cell  { color: #00ff66; font-size: 9px; }
-.unit-cell  { color: #ff3333; font-size: 9px; }
-
-.board-table .date-cell,
-.board-table .time-cell {
-    border: none;
-}
-
-.main-header {
-    color: #00e5ff;
-    font-size: 12px; 
-    line-height: 15px;
-    letter-spacing: 0.2px;
-    padding: 0.5cqw 0;
-}
-.datetime-cell {
-    /* display: flex !important; */
-    justify-content: flex-start;
-    align-items: center;
-    gap: 8px; /* Space between DATE and TIME */
-    padding-left: 2px !important;
-    white-space: nowrap;
-}
-
-.date-text, 
-.time-text {
-    color: #ffffff;
-    font-size: 7.5px;
-    white-space: nowrap;
-}
-
-
-.column-headers th {
-    color: #00e5ff;
-    font-size: 3.0cqw;
-    padding: 0.9cqw 0;
-}
-
-.board-table td {
-    font-size: 2.6cqw;
+function updateClock() {
+    var now = new Date();
     
-}
+    // Format Day/Month/Year
+    var day = String(now.getDate()).padStart(2, '0');
+    var month = String(now.getMonth() + 1).padStart(2, '0');
+    var year = String(now.getFullYear()).slice(-2);
+    
+    // Format 12-Hour Time with AM/PM
+    var hours = now.getHours();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // convert 0 to 12
+    var hoursStr = String(hours).padStart(2, '0');
+    var mins = String(now.getMinutes()).padStart(2, '0');
 
-.param-cell { color: #ff6600; }
-.conc-cell  { color: #00ff66; }
-.unit-cell  { color: #ff3333; }
+    var dateElem = document.getElementById("dateDisplay");
+    var timeElem = document.getElementById("timeDisplay");
 
-.unit-special {
-    text-transform: none !important;
-}
+    if (dateElem) dateElem.innerHTML = day + "/" + month + "/" + year;
+    if (timeElem) timeElem.innerHTML = hoursStr + ":" + mins + " " + ampm;
 
-.hidden-led-row {
-    display: none;
 }
 
 // 2. Fetch Live Weather & Air Quality Data using XMLHttpRequest (TB10 Compatible)
