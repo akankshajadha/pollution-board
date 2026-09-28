@@ -1,45 +1,38 @@
-
 body {
     background-color: #0b0b0b;
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
-    /* height: 130px; */
-    /* width: 140px; */
-    /* display: flex;  */
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden; 
+    
+    /* Center the signboard on the display screen */
+    display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Share Tech Mono', monospace;
-     overflow: hidden; 
+    min-height: 100vh;
 }
 
 /* The Adaptive Frame Block */
 .signboard-container {
-    /* background-color: #0b0b0b; */
-     /* padding: px; */
-     /* border: px solid #f1eaea;  */
-     /* box-sizing: border-box;  */
-    width: px;
     height: 160px;
+    width: 160px; /* Fixed width matching height to preserve 1:1 aspect ratio */
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
-
+    box-sizing: border-box;
 }
-   .led-screen {
-    /* border: 0.6cqw solid #993d00; */
+
+.led-screen {
     padding: 1cqw;
-    /* background: #000000; */
-    /* width: %; */
+    width: 100%; /* Force screen container to take full container width */
     height: 100%;
     box-sizing: border-box; 
     box-shadow: none !important; 
     display: flex; 
     flex-direction: column;
-
-
 }
+
 .board-table {
-    width: 10%;
+    width: 100%; /* Fixed from 10% to fill the LED screen */
     height: 100%;
     margin: 0;
     padding: 0;
@@ -47,25 +40,37 @@ body {
     border-collapse: collapse;
     text-transform: uppercase;
     text-align: center;
-    table-layout: auto;
+    table-layout: fixed; /* Ensures column widths sum accurately to 100% */
 }
 
-
-.board-table th {
-    border: 1px solid  #f1eaea;
-    padding: 1px ;
+/* Updated Column Width Distribution to equal 100% */
+.col-param { 
+    text-align: center; 
+    padding-left: 1.5cqw; 
+    width: 50%; 
 }
 
+.col-count { 
+    text-align: center; 
+    width: 25%; 
+}
 
+.col-unit { 
+    text-align: center; 
+    width: 25%; 
+}
+
+.board-table th,
 .board-table td {
-    border: 1px solid #f1eaea ;
+    border: 1px solid #f1eaea;
     padding: 1px;
+    box-sizing: border-box;
 }
+
 .board-table .date-cell,
 .board-table .time-cell {
     border: none;
 }
-
 
 .main-header {
     color: #00e5ff;
@@ -73,7 +78,6 @@ body {
     line-height: 15px;
     letter-spacing: 0.2px;
     padding: 0.5cqw 0;
-    /* text-shadow: 0 0 1.5cqw rgba(0, 229, 255, 0.8); */
 }
 
 .date-cell {
@@ -82,24 +86,17 @@ body {
     font-size: 3.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border-top: 1px solid #555555 ;
-    border-left: 1px solid #555555;
-    border-bottom: 1px solid #555555;
-    border-right: 1px solid #555555;
+    border: 1px solid #555555;
 }
 
 .time-cell {
     text-align: left;
-    padding-left:3cqw ; 
+    padding-left: 3cqw; 
     font-size: 4.2cqw;
     color: #ffffff;
     white-space: nowrap;
-    border-top: 1px solid #555555 ;
-    border-left: 1px solid #555555 ;
-    border-bottom: 1px solid #555555 ;
-    border-right: 1px solid #555555;
+    border: 1px solid #555555;
 }
-
 
 .column-headers th {
     color: #00e5ff;
@@ -107,31 +104,13 @@ body {
     padding: 0.9cqw 0;
 }
 
-.col-param { text-align: center; padding-left: 1.5cqw; width: 60%; }
-.col-count { text-align: center; width: 10%; }
-.col-unit  { text-align: center; width: 14%; }
-
 .board-table td {
     font-size: 4.5cqw;
 }
 
-
-.param-cell {
-    color: #ff6600;
-    /* text-shadow: 0 0 8cqw rgba(255, 102, 0, 0.8); */
-    /* font-weight: bold; */
-}
-
-.conc-cell {
-    color: #00ff66;
-    /* text-shadow: 0 0 8cqw rgba(0, 255, 102, 0.9); */
-    /* font-weight: bold; */
-}
-
-.unit-cell {
-    color: #ff3333;
-    /* text-shadow: 0 0 8cqw rgba(255, 51, 51, 0.9); */
-}
+.param-cell { color: #ff6600; }
+.conc-cell  { color: #00ff66; }
+.unit-cell  { color: #ff3333; }
 
 .unit-special {
     text-transform: none !important;
