@@ -27,8 +27,8 @@ body {
 /* The Adaptive Frame Block */
 .signboard-container {
     background-color:#0b0b0b;
-    height: 150px;
-    width: 150px; 
+    height: 160px;
+    width: 160px; 
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
     box-sizing: border-box;
@@ -36,7 +36,7 @@ body {
 
 .led-screen {
     background-color: #000000;
-    height: 150px;            
+    height: 160px;            
     box-sizing: border-box; 
     display: flex; 
     flex-direction: column;
