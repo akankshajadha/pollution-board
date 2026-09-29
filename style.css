@@ -123,7 +123,7 @@ body {
 .date-cell {
     text-align:right;
     padding: 0.5cqw 0.5cqw;
-    font-size: 3px;
+    font-size: 7px;
     color: #ffffff;
     white-space: nowrap;
     border-top: 1px solid #555555 ;
@@ -134,7 +134,7 @@ body {
     .time-cell {
     text-align: center;
     /* padding-inline:3cqw ;  */
-    font-size: 3px;
+    font-size: 7px;
     color: #ffffff;
     white-space: nowrap;
     border-top: 1px solid #555555 ;
@@ -147,13 +147,13 @@ body {
 
 .column-headers th {
     color: #00e5ff;
-    font-size: 4px;
+    font-size: 7px;
     text-align:center;
     padding: 0.9cqw 0;
 }
 
 .board-table td {
-    font-size: 4px;
+    font-size: 7px;
     
     
 }
