@@ -58,7 +58,7 @@ body {
     table-layout: fixed;
 }
 
-.col-param { width: 50%; text-align: left; padding-left: 2px !important; }
+.col-param { width: 50%; text-align: center; padding-left: 2px !important; }
 .col-count { width: 25%; text-align: center; }
 .col-unit  { width: 25%; text-align: center; }
 
@@ -153,7 +153,8 @@ body {
 }
 
 .board-table td {
-    font-size: 4.6cqw;
+    font-size: 5px;
+    
     
 }
 
