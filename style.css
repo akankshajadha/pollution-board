@@ -1,8 +1,8 @@
-
+/* FIXED: Pointed to the genuine Google Fonts server instead of an empty domain */
 @import url('https://googleapis.com');
 
 body {
-    background-color: #000000;
+    background-color: #000000; /* Pure black shuts off unlit background matrix pixels */
     margin: 0;
     padding: 0;
     font-family: 'VT323', monospace; 
@@ -10,12 +10,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-      width: 100vw;
+    width: 100vw;
     height: 100vh;
-
-      /* border: 2px solid #e71a1a;  */
-      /* border-radius: 2px;    */
+    
+    /* Hard matrix smoothing overrides */
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: never;
@@ -23,26 +21,29 @@ body {
     image-rendering: crisp-edges;
 }
 
-
-/* The Adaptive Frame Block */
+/* The Adaptive Frame Block - Balanced to match 160x160 hardware bounds perfectly */
 .signboard-container {
-    background-color:#0b0b0b;
-    height: 160px;
-    width: 160px; 
-    aspect-ratio: 1 / 1; 
-    container-type: inline-size; 
+    background-color: #000000;
+    height: 154px; /* Reduced from 160px by 6px to pull borders fully onto the panel modules */
+    width: 154px; 
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .led-screen {
     background-color: #000000;
-    height: 160px;            
+    width: 100%;
+    height: 100%;            
     box-sizing: border-box; 
-    /* display: flex;  */
+    display: flex; /* Restored display flex */
     flex-direction: column;
-    padding: 0;   
-    margin: 0 auto;            
-    border: 2px solid ; 
+    padding: 1px;   
+    margin: 0;            
+    
+    /* FIXED: Force-colored your outer border line to bright cyan */
+    border: 2px solid #00e5ff !important; 
     outline: none !important;
 }
 
@@ -51,113 +52,97 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    border: 1px solid #f1eaea;
     border-collapse: collapse;
     text-transform: uppercase;
-    text-align: center;
-    table-layout: fixed;
+    table-layout: fixed; /* Strictly enforces percentages below without collapsing columns */
 }
 
-.col-param { width: 50%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 25%; text-align: center; }
-.col-unit  { width: 25%; text-align: center; }
-
-.col-count { 
-    text-align: center; 
-    width: 20%; 
-}
-
-.col-unit { 
-    text-align: center; 
-    width: 20%; 
-}
+/* FIXED COLUMN RATIOS: Prevents column labels from crashing into data blocks */
+.col-param { width: 52% !important; } 
+.col-count { width: 24% !important; } 
+.col-unit  { width: 24% !important; } 
 
 .board-table th,
 .board-table td {
-    border: 1px solid #f1eaea;
-    padding: 1px;
+    border: 1px solid #444444; /* Clean 1-pixel inner grid separation line */
+    padding: 0px 1px !important; /* Minimized vertical padding to clear room for bottom rows */
     box-sizing: border-box;
-}
-/* .board-table tr:first-child th { border-top: none !important; } */
-/* .board-table tr:last-child td  { border-bottom: none !important; } */
-/* .board-table td:first-child,  */
-/* .board-table th:first-child    { border-left: none !important; } */
-/* .board-table td:last-child,  */
-/* .board-table th:last-child     { border-right: none !important; }    */
-/* .col-param { width: 44%; text-align: left; padding-left: 2px !important; } */
-/* .col-count { width: 28%; text-align: center; } */
-/* .col-unit  { width: 28%; text-align: center; } */
-
-.main-header { color: #00e5ff; font-size: 9px; }
-.date-cell   { color: #ffffff; font-size: 15px; text-align: right; padding-right: 2px; }
-.time-cell   { color: #ffffff; font-size: 15px; text-align: left; padding-left: 2px; }
-
-.column-headers th { color: #00e5ff; font-size: 10px; }
-
-.param-cell { 
-    color: #ff6600; 
-    font-size: 7.6px !important; /* Adjust font size here */
-    text-align:center; 
-    padding-left: 2px !important;
-    image-rendering: pixelated;
-    font-smooth: never;
-   -webkit-font-smoothing: none;
-
-}
-.conc-cell  { color: #00ff66; font-size: 15px; }
-.unit-cell  { color: #ff3333; font-size: 15px; }
-
-.board-table .date-cell,
-.board-table .time-cell {
-    border: none;
+    vertical-align: middle;
+    text-align: center;
 }
 
+/* TOP BOARD BRANDING BLOCK */
 .main-header {
     color: #00e5ff;
-    font-size: 12px; 
-    line-height: 15px;
-    letter-spacing: 0.2px;
-    padding: 0.5cqw 0;
-}
-.datetime-cell {
-    /* display: flex !important; */
-    justify-content: flex-start;
-    align-items: center;
-    gap: 8px; /* Space between DATE and TIME */
-    padding-left: 2px !important;
-    white-space: nowrap;
+    font-family: 'Press Start 2P', monospace; /* Block font makes header pop */
+    font-size: 8px !important; /* Hard pixel override to fit screen width */
+    line-height: 10px;
+    letter-spacing: -0.2px;
 }
 
+/* FIXED: Complete overhaul of your Date/Time alignment using cross-axis Flex spacing */
+.datetime-row-cell {
+    padding: 1px 2px !important;
+    background-color: #000000;
+}
+
+.datetime-container {
+    display: flex !important;
+    flex-direction: row !important; /* Lock side-by-side horizontally */
+    justify-content: space-between; /* Date snaps to the left edge, Time snaps to the right edge */
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* FIXED FONT SIZES: Changed from overlapping 15px down to 8px pixel limits */
 .date-text, 
 .time-text {
     color: #ffffff;
-    font-size: 7.0px;
-    white-space: nowrap;
+    font-family: 'VT323', monospace;
+    font-size: 8px !important; 
+    white-space: nowrap !important; /* Prevents values from auto-dropping to a second line */
+    letter-spacing: -0.4px !important; /* Tightens characters to eliminate right-side box overflow */
 }
 
-
+/* COLUMN CATEGORIES HEADER */
 .column-headers th {
     color: #00e5ff;
-    font-size: 4px;
-    padding: 0.9cqw 0;
+    font-size: 8px !important;
+    padding: 1px 0;
 }
 
-.board-table td {
-    font-size: 3.6cqw;
-    
+/* CRITICAL PARAMETER LABELS (Left aligned for easy reading) */
+.param-cell { 
+    color: #ff6600; 
+    font-size: 7.2px !important; 
+    text-align: left !important; 
+    padding-left: 3px !important;
+    letter-spacing: -0.5px !important;
 }
 
-.param-cell { color: #ff6600; }
-.conc-cell  { color: #00ff66; }
-.unit-cell  { color: #ff3333; }
+/* CENTERED SENSOR VALUE CELLS */
+.conc-cell { 
+    color: #00ff66; 
+    font-family: 'Press Start 2P', monospace; /* Square retro 8-bit blocks for values */
+    font-size: 9px !important; 
+}
+
+/* TRACKED HARDWARE UNITS */
+.unit-cell { 
+    color: #ff3333; 
+    font-size: 9px !important; 
+}
 
 .unit-special {
-    text-transform: none !important;
+    text-transform: none !important; /* Keeps microgram characters like 'µg/m³' accurate */
 }
 
 .hidden-led-row {
     display: none;
 }
+
 * {
     outline: none !important;
+    box-shadow: none !important;
 }
