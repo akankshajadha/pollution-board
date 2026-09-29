@@ -8,7 +8,8 @@ app.use(cors());
 let sensorReadings = {
     temperature: 30.3,
     humidity: 74,
-    pm25: 15
+    pm25: 15,
+    pm10:45,
 };
 
 app.get('/api/sensors', (req, res) => {
