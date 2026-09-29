@@ -35,7 +35,7 @@ body {
     display: flex; 
     flex-direction: column;
     border: 2px solid #ff8800;
-      padding: 4px !important;  
+      padding: 2px !important;  
 }
 
 .board-table {
@@ -81,15 +81,15 @@ body {
 .col-unit  { width: 28%; text-align: center; }
 
 .main-header { color: #00e5ff; font-size: 10px; }
-.date-cell   { color: #ffffff; font-size: 12px; text-align: left; padding-left: 2px; }
-.time-cell   { color: #ffffff; font-size: 12px; text-align: left; padding-left: 2px; }
+.date-cell   { color: #ffffff; font-size: 15px; text-align: right; padding-right: 2px; }
+.time-cell   { color: #ffffff; font-size: 15px; text-align: left; padding-left: 2px; }
 
-.column-headers th { color: #00e5ff; font-size: 12px; }
-/* REPLACE WITH THIS: */
+.column-headers th { color: #00e5ff; font-size: 10px; }
+
 .param-cell { 
     color: #ff6600; 
-    font-size: 7px !important; /* Adjust font size here */
-    text-align: left; 
+    font-size: 6px !important; /* Adjust font size here */
+    text-align: center; 
     padding-left: 2px !important;
     image-rendering: pixelated;
     font-smooth: never;
@@ -106,7 +106,7 @@ body {
 
 .main-header {
     color: #00e5ff;
-    font-size: 15px; 
+    font-size: 12px; 
     line-height: 15px;
     letter-spacing: 0.2px;
     padding: 0.5cqw 0;
@@ -115,7 +115,7 @@ body {
     /* display: flex !important; */
     justify-content: flex-start;
     align-items: center;
-    gap: 8px;
+    gap: 8px; /* Space between DATE and TIME */
     padding-left: 2px !important;
     white-space: nowrap;
 }
@@ -123,19 +123,19 @@ body {
 .date-text, 
 .time-text {
     color: #ffffff;
-    font-size: 6.5px;
+    font-size: 7.0px;
     white-space: nowrap;
 }
 
 
 .column-headers th {
     color: #00e5ff;
-    font-size: 4.0cqw;
+    font-size: 4.5cqw;
     padding: 0.9cqw 0;
 }
 
 .board-table td {
-    font-size: 6.6cqw;
+    font-size: 4.6cqw;
     
 }
 
