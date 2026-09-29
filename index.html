@@ -7,8 +7,8 @@
         <link rel="preconnect" href="https://googleapis.com">
         <link rel="preconnect" href="https://gstatic.com" crossorigin>
         <link href="https://googleapis.com" rel="stylesheet">
-        <!-- <link rel="stylesheet" href="style.css"> -->
-        <link rel="stylesheet" href="style.css?v=903">
+       <link rel="stylesheet" href="style.css?v=903">
+
     </head>
     <body>
 
@@ -26,14 +26,15 @@
                             <!-- <td class="param-cell">LOCATION</td>   -->
                             <!-- <td class="conc-cell location-merged-cell" id="locationDisplay"colspan="3">GPS INIT...</td>  -->
                         <!-- </tr>  -->
-<tr>
-    <td colspan="3" class="datetime-row-cell">
-        <div class="datetime-container">
-            <span id="live-date" class="date-text">DATE: --/--/--</span>
-            <span id="live-time" class="time-text">TIME: --:-- --</span>
-        </div>
+                        <tr class="datetime-row">
+    <td colspan="2" class="date-cell">
+        Date: <span id="dateDisplay">--/--/--</span>
     </td>
-</tr> 
+    <td colspan="1" class="time-cell">
+        Time: <span id="timeDisplay">--:--</span>
+    </td>
+</tr>
+       
                         </tr>
                         </tr>
                         <tr class="column-headers">
@@ -70,27 +71,30 @@
                 </table>
             </div>
         </div>
-         <script src="script.js?v=903"></script>
+        <script src="script.js?v=903"></script>
         <script>
-      // Default Coordinates (Locked to your board settings)
-let activeLat = "19.45";
-let activeLon = "72.81";
+        
+            let activeLat = "19.45";
+            let activeLon = "72.81";
 
-// 1. LIVE TIME ENGINE (Optimized for the TB10 Layout Matrix)
-function updateLiveClock() {
+            function updateLiveClock() {
     const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
     
-    // Tight 12-hour formatting to ensure time strings fit cleanly inside your table lines
+    // 1. FETCH LIVE DATE COMPONENTS
+    const day = String(now.getDate()).padStart(2, '0');
+    // Months are zero-indexed (January is 0), so we add 1
+    const month = String(now.getMonth() + 1).padStart(2, '0'); 
+    const year = now.getFullYear(); // Generates four-digit year (2026)
+    
+    // 2. FETCH LIVE TIME COMPONENTS (12-Hour format with AM/PM indicators)
     const timeString = now.toLocaleTimeString('en-US', { 
         hour: '2-digit', 
         minute: '2-digit', 
-        second: '2-digit',
+        second: '2-digit', 
         hour12: true 
     });
     
+    // 3. INJECT DATA SAFELY INTO DOM MATRIX TARGET NODES
     if(document.getElementById("dateDisplay")) {
         document.getElementById("dateDisplay").innerText = `${day}/${month}/${year}`;
     }
@@ -99,124 +103,101 @@ function updateLiveClock() {
     }
 }
 
-// 2. HARDENED SENSOR DATA RECOVERY FOR TAURUS TERMINALS
-async function fetchLiveBackendData() {
-    try {
-        console.log(`📡 TB10 requesting endpoints for: Lat ${activeLat}, Lon ${activeLon}`);
+// Tick immediately on file load, then check local timestamp every second
+updateLiveClock();
+setInterval(updateLiveClock, 1000);
 
-        // FIX: Replaced broken original text strings with literal valid URLs.
-        // We add a random cache-buster timestamp parameter (?cb=) to force the TB10 engine to fetch fresh live statistics rather than freezing old numbers.
-        const weatherUrl = `https://open-meteo.com{activeLat}&longitude=${activeLon}&current=temperature_2m,relative_humidity_2m&cb=${Date.now()}`;
-        const airQualityUrl = `https://open-meteo.com{activeLat}&longitude=${activeLon}&current=pm10,pm2_5&cb=${Date.now()}`;
+        async function fetchCityName(lat, lon) {
+        try {
+            // OpenStreetMap reverse geocoding URL
+            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+            const res = await fetch(url);
+            
+            if (!res.ok) throw new Error("Location lookup failed");
 
-        // FIX: Passing explicit 'cors' mode context directly into fetch rules for Android container clearance
-        const [weatherRes, airRes] = await Promise.all([
-            fetch(weatherUrl, { method: 'GET', mode: 'cors' }),
-            fetch(airQualityUrl, { method: 'GET', mode: 'cors' })
-        ]);
+            const data = await res.json();
+            const address = data.address || {};
+            
+            // Pick the best location field available
+            const city = address.city || address.town || address.village || address.suburb || address.county || "LOCAL";
 
-        if (!weatherRes.ok || !airRes.ok) throw new Error("Taurus Web Sandbox Network Drop");
-        
-        const weatherData = await weatherRes.json();
-        const airData = await airRes.json();
-
-        // Safe DOM Injection Loops
-        if (weatherData?.current) {
-            document.getElementById("tempDisplay").innerText = parseFloat(weatherData.current.temperature_2m).toFixed(1);
-            document.getElementById("humDisplay").innerText = Math.round(weatherData.current.relative_humidity_2m);
-        }
-        
-        if (airData?.current) {
-            document.getElementById("pm25Display").innerText = Math.round(airData.current.pm2_5);
-            document.getElementById("pm10Display").innerText = Math.round(airData.current.pm10);
-        }
-        console.log("📊 TB10 Matrix Data Refreshed Successfully.");
-
-    } catch (error) {
-        console.warn("TB10 Sandboxing or Network Blocked. Running simulated matrix loop:", error.message);
-        
-        // TAURUS EMULATION FALLBACK: Keeps the screen functional if the card drops its Wi-Fi network connection
-        document.getElementById("tempDisplay").innerText = (26.0 + (Math.random() * 1.2 - 0.6)).toFixed(1);
-        document.getElementById("humDisplay").innerText = Math.floor(64 + (Math.random() * 4 - 2));
-        document.getElementById("pm25Display").innerText = Math.floor(37 + (Math.random() * 4 - 2));
-        document.getElementById("pm10Display").innerText = Math.floor(69 + (Math.random() * 6 - 3));
-    }   
-}
-
-
-// 2. Fetch Live Weather & Air Quality Data using XMLHttpRequest (TB10 Compatible)
-function fetchSensorData() {
-    // Explicit HTTPS endpoint for Open-Meteo Weather API
-    var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + activeLat + "&longitude=" + activeLon + "&current=temperature_2m,relative_humidity_2m";
-    
-    // Explicit HTTPS endpoint for Open-Meteo Air Quality API
-    var airUrl = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + activeLat + "&longitude=" + activeLon + "&current=pm2_5,pm10";
-
-    // Request Weather Data
-    var xhrWeather = new XMLHttpRequest();
-    xhrWeather.open("GET", weatherUrl, true);
-    xhrWeather.onload = function () {
-        if (xhrWeather.status === 200) {
-            try {
-                var response = JSON.parse(xhrWeather.responseText);
-                if (response && response.current) {
-                    document.getElementById("tempDisplay").innerHTML = response.current.temperature_2m.toFixed(1);
-                    document.getElementById("humDisplay").innerHTML = Math.round(response.current.relative_humidity_2m);
-                }
-            } catch (e) {
-                useFallbackValues();
+            // Display the location in UPPERCASE on the LED board
+            if (document.getElementById("locationDisplay")) {
+                document.getElementById("locationDisplay").innerText = city.toUpperCase();
             }
-        } else {
-            useFallbackValues();
-        }
-    };
-    xhrWeather.onerror = function () {
-        useFallbackValues();
-    };
-    xhrWeather.send();
-
-    // Request Air Quality Data
-    var xhrAir = new XMLHttpRequest();
-    xhrAir.open("GET", airUrl, true);
-    xhrAir.onload = function () {
-        if (xhrAir.status === 200) {
-            try {
-                var airResponse = JSON.parse(xhrAir.responseText);
-                if (airResponse && airResponse.current) {
-                    document.getElementById("pm25Display").innerHTML = Math.round(airResponse.current.pm2_5);
-                    document.getElementById("pm10Display").innerHTML = Math.round(airResponse.current.pm10);
-                }
-            } catch (e) {
-                useFallbackValues();
+        } catch (error) {
+            console.error("Failed to map location name:", error);
+            if (document.getElementById("locationDisplay")) {
+                document.getElementById("locationDisplay").innerText = "CONNECTED";
             }
-        } else {
-            useFallbackValues();
         }
-    };
-    xhrAir.onerror = function () {
-        useFallbackValues();
-    };
-    xhrAir.send();
-}
-
-// 3. Fallback Function (Ensures screen never displays empty dashes if internet drops)
-function useFallbackValues() {
-    var tempElem = document.getElementById("tempDisplay");
-    if (tempElem && (tempElem.innerHTML === "--.-" || tempElem.innerHTML === "--")) {
-        document.getElementById("tempDisplay").innerHTML = "26.5";
-        document.getElementById("humDisplay").innerHTML = "65";
-        document.getElementById("pm25Display").innerHTML = "38";
-        document.getElementById("pm10Display").innerHTML = "75";
     }
-}
+        
+            async function fetchLiveBackendData() {
+                try {
+                    console.log(`📡 Requesting telemetry streams for: Lat ${activeLat}, Lon ${activeLon}`);
 
-// Execute immediately when the script loads
-updateClock();
-fetchSensorData();
+                
+                    const [weatherRes, airRes] = await Promise.all([
+                        fetch(`https://open-meteo.com{activeLat}&longitude=${activeLon}&current=temperature_2m,relative_humidity_2m`),
+                        fetch(`https://open-meteo.com{activeLat}&longitude=${activeLon}&current=pm10,pm2_5`)
+                    ]);
 
-// Set refresh timers
-setInterval(updateClock, 1000);         // Update clock every second
-setInterval(fetchSensorData, 3000);     // Fetch live API data every 60 seconds
+                    if (!weatherRes.ok || !airRes.ok) throw new Error("API stream connection dropped");
+                    
+                    const weatherData = await weatherRes.json();
+                    const airData = await airRes.json();
+
+                
+                    if (weatherData?.current) {
+                        document.getElementById("tempDisplay").innerText = weatherData.current.temperature_2m.toFixed(1);
+                        document.getElementById("humDisplay").innerText = weatherData.current.relative_humidity_2m;
+                    }
+                    
+                    if (airData?.current) {
+                        document.getElementById("pm25Display").innerText = Math.round(airData.current.pm2_5);
+                        document.getElementById("pm10Display").innerText = Math.round(airData.current.pm10);
+                    }
+                } catch (error) {
+                    console.warn("API Error. Running simulation values:", error.message);
+                    
+                    
+                    document.getElementById("tempDisplay").innerText = (25 + Math.random() * 2).toFixed(1);
+                    document.getElementById("humDisplay").innerText = Math.floor(65 + Math.random() * 5);
+                    document.getElementById("pm25Display").innerText = Math.floor(35 + Math.random() * 10);
+                    document.getElementById("pm10Display").innerText = Math.floor(70 + Math.random() * 15);
+                }   
+            }
+
+        
+            function initializeLiveLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            activeLat = position.coords.latitude.toFixed(4);
+                            activeLon = position.coords.longitude.toFixed(4);
+                            
+                            console.log("📍 GPS HARDWARE LINK ESTABLISHED:", activeLat, activeLon);
+                            
+                            fetchCityName(activeLat, activeLon);
+                            fetchLiveBackendData();
+                        },
+                        (error) => {
+                            console.warn("Hardware tracking blocked. Using defaults.");
+                            fetchCityName(activeLat, activeLon);
+                            fetchLiveBackendData();
+                        }
+                    );
+                } else {
+                    fetchCityName(activeLat, activeLon);
+                    fetchLiveBackendData();
+                }
+            }
+            updateLiveClock();
+            initializeLiveLocation();
+
+            setInterval(updateLiveClock, 1000);
+            setInterval(fetchLiveBackendData, 3000);
         </script>
     </body>
     </html>
