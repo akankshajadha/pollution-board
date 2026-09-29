@@ -40,8 +40,8 @@ body {
     box-shadow: none !important; 
     display: flex; 
     flex-direction: column;
-    border: 1px solid #ff8800;
-      padding: 1px ;  
+    /* border: 1px solid #ff8800; */
+      /* padding: 1px ;   */
 }
 
 .board-table {
@@ -86,7 +86,7 @@ body {
 .col-count { width: 28%; text-align: center; }
 .col-unit  { width: 28%; text-align: center; }
 
-.main-header { color: #00e5ff; font-size: 10px; }
+.main-header { color: #00e5ff; font-size: 9px; }
 .date-cell   { color: #ffffff; font-size: 15px; text-align: right; padding-right: 2px; }
 .time-cell   { color: #ffffff; font-size: 15px; text-align: left; padding-left: 2px; }
 
@@ -95,7 +95,7 @@ body {
 .param-cell { 
     color: #ff6600; 
     font-size: 7.6px !important; /* Adjust font size here */
-    text-align: center; 
+    text-align:center; 
     padding-left: 2px !important;
     image-rendering: pixelated;
     font-smooth: never;
