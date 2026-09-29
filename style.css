@@ -13,7 +13,6 @@ body {
     min-height: 100vh;
       width: 100vw;
     height: 100vh;
-    position: relative;
 
       /* border: 2px solid #e71a1a;  */
       /* border-radius: 2px;    */
@@ -28,22 +27,16 @@ body {
 /* The Adaptive Frame Block */
 .signboard-container {
     background-color:#0b0b0b;
-    height: 154px;
-    width: 154px; 
+    height: 150px;
+    width: 150px; 
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
     box-sizing: border-box;
-    position: absolute;
-    top: 3px;
-    bottom: 3px;
-    left: 3px;
-    right: 3px;
-    margin: auto;
 }
 
 .led-screen {
     background-color: #000000;
-    height: 160px;            
+    height: 150px;            
     box-sizing: border-box; 
     display: flex; 
     flex-direction: column;
@@ -59,8 +52,8 @@ body {
     margin: 0;
     padding: 0;
     border: 1px solid #f1eaea;
-    /* border-collapse: collapse; */
-     text-transform: center;
+    border-collapse: collapse;
+    text-transform: uppercase;
     text-align: center;
     table-layout: fixed;
 }
@@ -145,7 +138,7 @@ body {
 
 .column-headers th {
     color: #00e5ff;
-    font-size: 3.5cqw;
+    font-size: 4.5cqw;
     padding: 0.9cqw 0;
 }
 
