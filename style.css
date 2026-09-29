@@ -96,7 +96,7 @@ body {
 
 .param-cell { 
     color: #ff6600; 
-    font-size: 7.6px !important; /* Adjust font size here */
+    font-size: 6.6px !important; /* Adjust font size here */
     text-align:center; 
     padding-left: 2px !important;
     image-rendering: pixelated;
@@ -104,8 +104,8 @@ body {
    -webkit-font-smoothing: none;
 
 }
-.conc-cell  { color: #00ff66; font-size: 15px; }
-.unit-cell  { color: #ff3333; font-size: 15px; }
+.conc-cell  { color: #00ff66; font-size: 20px; }
+.unit-cell  { color: #ff3333; font-size: 20px; }
 
 .board-table .date-cell,
 .board-table .time-cell {
@@ -123,7 +123,7 @@ body {
 .date-cell {
     text-align:right;
     padding: 0.5cqw 0.5cqw;
-    font-size: 7px;
+    font-size: 9px;
     color: #ffffff;
     white-space: nowrap;
     border-top: 1px solid #555555 ;
@@ -134,7 +134,7 @@ body {
     .time-cell {
     text-align: center;
     /* padding-inline:3cqw ;  */
-    font-size: 7px;
+    font-size: 9px;
     color: #ffffff;
     white-space: nowrap;
     border-top: 1px solid #555555 ;
@@ -147,13 +147,13 @@ body {
 
 .column-headers th {
     color: #00e5ff;
-    font-size: 7px;
+    font-size: 10px;
     text-align:center;
-    padding: 0.9cqw 0;
+    padding: 10cqw 0;
 }
 
 .board-table td {
-    font-size: 7px;
+    font-size: 10px;
     
     
 }
