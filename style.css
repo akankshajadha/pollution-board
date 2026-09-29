@@ -24,8 +24,8 @@ body {
 /* The Adaptive Frame Block */
 .signboard-container {
     background-color:#0b0b0b;
-    height: 160px;
-    width: 160px; /* Fixed width matching height to preserve 1:1 aspect ratio */
+    height: 150px;
+    width: 150px; /* Fixed width matching height to preserve 1:1 aspect ratio */
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
     box-sizing: border-box;
