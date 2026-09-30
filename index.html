@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Construction Board</title>
-    <!-- Clean Google Fonts direct request path -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=903">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=905">
 </head>
 <body>
 
@@ -19,18 +18,18 @@
                     </tr>
                 
                     <tr class="datetime-row">
-                        <td colspan="2" class="date-cell">
-                            Date: <span id="dateDisplay">--/--/--</span>
-                        </td>
-                        <td colspan="1" class="time-cell">
-                            Time: <span id="timeDisplay">--:--</span>
-                        </td>
-                    </tr>
+    <td colspan="2"class="date-cell">
+        Date: <span id="dateDisplay">--/--/--</span>
+    </td>
+    <td colspan="1" class="time-cell">
+        Time: <span id="timeDisplay">--:--</span>
+    </td>
+</tr>
               
                     <tr class="column-headers">
-                        <th class="col-param">Parameter</th>
-                        <th class="col-count">Count</th>
-                        <th class="col-unit">Unit</th>
+                        <th class="col-param">PARAMETER</th>
+                        <th class="col-count">COUNT</th>
+                        <th class="col-unit">UNIT</th>
                     </tr>
                 </thead>
 
@@ -60,14 +59,14 @@
         </div>
     </div>
 
-    <!-- PURE ES5 LEGACY JAVASCRIPT: GUARANTEED NOT TO CRASH TAURUS EMBEDDED PLAYER CORES -->
     <script>
-        // Custom zero-padding mechanism replacing unsupported ES6 .padStart()
+        var activeLat = "19.45";
+        var activeLon = "72.81";
+
         function classicPadZero(num) {
-            return num < 10 ? '0' + num : '' + num;
+            return num < 10 ? '0' + num:'' + num;
         }
 
-        // 1. UNIVERSAL COMPATIBLE CLOCK LOGIC
         function updateLiveClock() {
             var now = new Date();
             var day = classicPadZero(now.getDate());
@@ -76,49 +75,55 @@
             
             var hours = now.getHours();
             var minutes = classicPadZero(now.getMinutes());
-            var ampm = hours >= 12 ? 'PM' : 'AM';
+            var seconds = classicPadZero(now.getSeconds());
+            var ampm = hours >=12 ?'PM':'AM';
             
             hours = hours % 12;
-            hours = hours ? hours : 12; // Converts '0' hour to '12'
+            hours = hours ? hours : 12; 
             var formattedHours = classicPadZero(hours);
             
-            var timeString = formattedHours + ':' + minutes + ' ' + ampm;
+            var timeString = formattedHours +':'+minutes+':'+seconds+' '+ ampm;
             
             var dateEl = document.getElementById("dateDisplay");
             var timeEl = document.getElementById("timeDisplay");
             
-            if (dateEl) dateEl.innerText = day + '/' + month + '/' + year;
-            if (timeEl) timeEl.innerText = timeString;
+            if (dateEl) dateEl.innerText =day+'/'+month +'/'+year;
+            if (timeEl) timeEl.innerText =timeString;
         }
 
-        // 2. STABLE OFFLINE-FIRST TELEMETRY WRITER
-        function displayTelemetryData() {
-            // Instantly forces standard numbers onto the screen modules on load
-            var tempEl = document.getElementById("tempDisplay");
-            var humEl = document.getElementById("humDisplay");
-            var pm25El = document.getElementById("pm25Display");
-            var pm10El = document.getElementById("pm10Display");
+        function fetchLiveBackendData() {
+            var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + activeLat + "&longitude=" + activeLon + "&current=temperature_2m,relative_humidity_2m";
+            var airQualityUrl = "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + activeLat + "&longitude=" + activeLon + "&current=pm10,pm2_5";
 
-            if (tempEl) tempEl.innerText = "26.4";
-            if (humEl) humEl.innerText = "65";
-            if (pm25El) pm25El.innerText = "36";
-            if (pm10El) pm10El.innerText = "83";
+            fetch(weatherUrl)
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data && data.current) {
+                        document.getElementById("tempDisplay").innerText = parseFloat(data.current.temperature_2m).toFixed(1);
+                        document.getElementById("humDisplay").innerText = Math.round(data.current.relative_humidity_2m);
+                    }
+                })
+                .catch(function(e) { console.error("Weather Fetch Error", e); });
+
+            fetch(airQualityUrl)
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data && data.current) {
+                        document.getElementById("pm25Display").innerText = Math.round(data.current.pm2_5);
+                        document.getElementById("pm10Display").innerText = Math.round(data.current.pm10);
+                    }
+                })
+                .catch(function(e) { console.error("Air Quality Fetch Error", e); });
         }
 
-        // 3. SECURE HARDWARE RUNTIME ATTACHMENT
-        function initializeSystem() {
-            console.log("System initialization sequence engaged...");
-            
-            // Fire layout elements instantly to drop dashes immediately
+        // Run clock right away on load
+        window.onload = function() {
             updateLiveClock();
-            displayTelemetryData();
-            
-            // Continuous clock update interval loop (every 1 second)
             setInterval(updateLiveClock, 1000);
-        }
 
-        // Safe legacy trigger hook
-        window.onload = initializeSystem;
+            fetchLiveBackendData();
+            setInterval(fetchLiveBackendData, 300000);
+        };
     </script>
 </body>
 </html>
