@@ -32,6 +32,8 @@ body {
     aspect-ratio: 1 / 1; 
     container-type: inline-size; 
     box-sizing: border-box;
+    border: 1px solid#f77620e5;;
+    padding: 1px;
 }
 
 .led-screen {
@@ -42,7 +44,7 @@ body {
     flex-direction: column;
     padding: 0;   
     margin: 0 auto;            
-    border: 2px solid ; 
+    /* border: 2px solid ;  */
     outline: none !important;
 }
 
@@ -55,12 +57,12 @@ body {
     border-collapse: collapse;
     text-transform: uppercase;
     text-align: center;
-    table-layout: fixed;
+ table-layout: fixed;
 }
 
 .col-param { width: 50%; text-align: left; padding-left: 2px !important; }
-.col-count { width: 25%; text-align: center; }
-.col-unit  { width: 25%; text-align: center; }
+.col-count { width: 40%; text-align: center; }
+.col-unit  { width: 10%; text-align: center; }
 
 .col-count { 
     text-align: center; 
@@ -69,7 +71,7 @@ body {
 
 .col-unit { 
     text-align: center; 
-    width: 20%; 
+    width: 10%; 
 }
 
 .board-table th,
@@ -96,7 +98,8 @@ body {
 
 .param-cell { 
     color: #ff6600; 
-    font-size: 7.6px !important; /* Adjust font size here */
+     line-height: 15px;
+    font-size: 6.6px !important; /* Adjust font size here */
     text-align:center; 
     padding-left: 2px !important;
     image-rendering: pixelated;
@@ -121,31 +124,34 @@ body {
 }
 .datetime-row-cell {
     /* Adds a 3-pixel internal safety padding boundary to pull text away from the lines */
-    padding: 1px 4px !important; 
+    padding: 3px 4px !important; 
     background-color: #000000;
 }
 .date-cell {
-    text-align:left;
-    padding: 0.5cqw 0.5cqw;
-    font-size: 4.2cqw;
+    text-align: left;
+    padding: 0.7cqw 2cqw;
+    font-size: 4cqw;
+    letter-spacing: -0.5px;
+    word-spacing: -2px;
     color: #ffffff;
-    white-space: nowrap;
-    border-top: 1px solid #555555 ;
-    border-left: 1px solid #555555;
-    border-bottom: 1px solid #555555;
-    border-right: 1px solid #555555;
-}
-    .time-cell {
-    text-align:center;
-    font-size: 4.2cqw;
-    color: #ffffff;
-    white-space: nowrap;
-    border-top: 1px solid #555555 ;
-    border-left: 1px solid #555555 ;
-    border-bottom: 1px solid #555555 ;
-    border-right: 1px solid #555555;
+    /* white-space: nowrap; */
+    border: 1px solid #555555;
+    box-sizing: border-box;
 }
 
+.time-cell {
+    text-align:right;          
+    padding: 0.9cqw 9cqw;       
+    font-size: 5cqw;      
+     letter-spacing: -0.5px;
+    word-spacing: -2px;
+    transform: translateX(-15px);
+    padding-right: 12px;      
+    color: #ffffff;
+    white-space: nowrap;
+    border: 1px solid #555555;
+    box-sizing: border-box;
+}
 
 
 .column-headers th {
